@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="ja" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TORYUMON TOKYO 2025 RISE | 登壇者インフォグラフィック</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <!-- Chosen Palette: Brilliant Blues (#0B2447, #19376D, #576CBC, with a #F5A623 accent) -->
+    <!-- Application Structure Plan: The infographic follows a narrative structure, starting with a hook: 'The Founders at a Glance' using large stats. It then delves into themed sections: 'The Spark of Entrepreneurship' (visualizing origin stories), 'The Gauntlet of the Early Days' (highlighting common challenges), 'Building the Engine' (comparing team philosophies with a Radar Chart), 'Fueling the Growth' (a Bar Chart for funding comparison), and 'Visions for the Future' (showing future goals). This structure was chosen to tell a compelling story, allowing the user to compare founders across key entrepreneurial stages, moving from qualitative origins to quantitative outcomes and future ambitions. -->
+    <!-- Visualization & Content Choices: 
+        - Founders' Funding: Goal: Inform/Compare -> Viz: Single Big Number in cards -> Justification: Provides an immediate, high-impact overview of each founder's scale. Method: Styled HTML.
+        - Entrepreneurial Journey: Goal: Organize -> Viz: HTML/CSS Flowchart -> Justification: Visually represents the non-linear but structured path from idea to company, making complex narratives digestible. Method: HTML/Tailwind. (NO SVG/Mermaid).
+        - Startup Challenges: Goal: Compare -> Viz: HTML/CSS Tag Cloud -> Justification: Highlights the most common qualitative pain points across the cohort in a visually engaging way. Method: HTML/Tailwind.
+        - Team Philosophy: Goal: Compare -> Viz: Radar Chart -> Justification: Allows for a multi-dimensional comparison of qualitative management styles, revealing subtle differences in approach. Library: Chart.js (Canvas).
+        - Fundraising Comparison: Goal: Compare -> Viz: Bar Chart -> Justification: The clearest method for comparing discrete quantitative data (funding amounts) across entities. Library: Chart.js (Canvas).
+        - Future Outlook: Goal: Inform -> Viz: Single Big Number in cards -> Justification: Distills complex future plans into powerful, memorable metrics (ARR, valuation goals). Method: Styled HTML.
+    -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <style>
+        body {
+            font-family: 'Noto Sans JP', sans-serif;
+            background-color: #f0f4f8;
+        }
+        .main-title {
+            color: #0B2447;
+        }
+        .card {
+            background-color: white;
+            border-radius: 1rem;
+            box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.05), 0 4px 6px -4px rgb(0 0 0 / 0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            height: 400px;
+            max-height: 60vh;
+        }
+        .flowchart-step {
+            border-left: 4px solid #576CBC;
+            position: relative;
+            padding: 1rem 1rem 1rem 2rem;
+            margin-bottom: 1rem;
+        }
+        .flowchart-step:before {
+            content: '';
+            position: absolute;
+            left: -0.75rem;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 1.25rem;
+            height: 1.25rem;
+            border-radius: 9999px;
+            background-color: white;
+            border: 4px solid #576CBC;
+        }
+        .challenge-tag {
+            background-color: #e0e7ff;
+            color: #3730a3;
+            padding: 0.5rem 1rem;
+            border-radius: 9999px;
+            font-weight: 500;
+            font-size: 0.875rem;
+        }
+    </style>
+</head>
+<body class="text-gray-700">
+
+    <div class="container mx-auto px-4 py-12 md:px-8 md:py-20">
+
+        <header class="text-center mb-16 md:mb-24">
+            <h1 class="text-4xl md:text-6xl font-black main-title tracking-tight">次代を創る、4つの原動力。</h1>
+            <p class="mt-4 text-lg md:text-xl max-w-3xl mx-auto text-gray-600">TORYUMON TOKYO 2025 RISEに集結した4人の若き起業家。彼らが何を想い、如何なる壁を乗り越え、どのような未来を描くのか。その挑戦の軌跡と熱量を、データと共に紐解きます。</p>
+        </header>
+
+        <main class="space-y-20 md:space-y-32">
+
+            <section id="glance">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl md:text-4xl font-bold main-title">Founders at a Glance</h2>
+                    <p class="mt-2 text-gray-600 max-w-2xl mx-auto">各社の成長を牽引する4名のプロフィールと、事業規模を象徴するマイルストーン。</p>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                    <div class="card p-6 text-center">
+                        <h3 class="font-bold text-xl text-gray-800">高橋 桃花</h3>
+                        <p class="text-sm text-gray-500 mb-4">株式会社AdMel</p>
+                        <p class="text-5xl font-black" style="color: #19376D;">Angel</p>
+                        <p class="mt-1 font-bold text-gray-600">Round</p>
+                        <p class="mt-4 text-sm text-gray-600 h-16">VC経験を経て、新たな広告体験を創出。業界の重鎮から支援を受ける。</p>
+                    </div>
+                    <div class="card p-6 text-center">
+                        <h3 class="font-bold text-xl text-gray-800">坪井 悠起</h3>
+                        <p class="text-sm text-gray-500 mb-4">株式会社Hagino</p>
+                        <p class="text-5xl font-black" style="color: #19376D;">6,000<span class="text-2xl ml-1">万円</span></p>
+                        <p class="mt-1 font-bold text-gray-600">Seed Round</p>
+                        <p class="mt-4 text-sm text-gray-600 h-16">観光業界への情熱を胸に、コロナ禍を乗り越え「人のインフラ」を構築。</p>
+                    </div>
+                    <div class="card p-6 text-center">
+                        <h3 class="font-bold text-xl text-gray-800">古津 瑛陸</h3>
+                        <p class="text-sm text-gray-500 mb-4">株式会社LacuS</p>
+                        <p class="text-5xl font-black" style="color: #19376D;">1<span class="text-2xl ml-1">億円超</span></p>
+                        <p class="mt-1 font-bold text-gray-600">Pre-Series A</p>
+                        <p class="mt-4 text-sm text-gray-600 h-16">祖母への想いから、シニアの食体験を変革する完全栄養食を開発。</p>
+                    </div>
+                    <div class="card p-6 text-center">
+                        <h3 class="font-bold text-xl text-gray-800">前田 将太</h3>
+                        <p class="text-sm text-gray-500 mb-4">匠技研工業株式会社</p>
+                        <p class="text-5xl font-black" style="color: #19376D;">7.7<span class="text-2xl ml-1">億円</span></p>
+                        <p class="mt-1 font-bold text-gray-600">Series A (累計)</p>
+                        <p class="mt-4 text-sm text-gray-600 h-16">ラクロス部同期と、日本の基幹産業・製造業のDXに挑む。</p>
+                    </div>
+                </div>
+            </section>
+
+            <section id="journey" class="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 items-center">
+                <div class="order-2 md:order-1">
+                    <div class="card p-6 md:p-8">
+                        <h4 class="font-bold text-lg mb-4" style="color: #0B2447;">高橋氏・前田氏の軌跡</h4>
+                        <div class="flowchart-step">
+                            <h5 class="font-bold text-gray-800">原体験と課題意識</h5>
+                            <p class="text-sm text-gray-600">広告運用や工場訪問で現場の根深いペインに直面。</p>
+                        </div>
+                        <div class="flowchart-step">
+                            <h5 class="font-bold text-gray-800">試行錯誤と転身</h5>
+                            <p class="text-sm text-gray-600">VCから起業家へ。複数事業の試行錯誤を経て、真の課題に焦点を定める。</p>
+                        </div>
+                         <div class="flowchart-step">
+                            <h5 class="font-bold text-gray-800">事業創造</h5>
+                            <p class="text-sm text-gray-600">経験と使命感が結実し、AdMel・匠技研工業を創業。</p>
+                        </div>
+                    </div>
+                     <div class="card p-6 md:p-8 mt-6">
+                        <h4 class="font-bold text-lg mb-4" style="color: #0B2447;">坪井氏・古津氏の軌跡</h4>
+                        <div class="flowchart-step">
+                            <h5 class="font-bold text-gray-800">個人的な情熱と使命感</h5>
+                            <p class="text-sm text-gray-600">観光業界への関心、曽祖母の食体験という強い動機。</p>
+                        </div>
+                        <div class="flowchart-step">
+                            <h5 class="font-bold text-gray-800">逆境と着想</h5>
+                            <p class="text-sm text-gray-600">コロナ禍や野球での挫折、介護現場での気づきが転機に。</p>
+                        </div>
+                         <div class="flowchart-step">
+                            <h5 class="font-bold text-gray-800">事業創造</h5>
+                            <p class="text-sm text-gray-600">課題解決への情熱が、Hagino・LacuSの創業へ繋がる。</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="order-1 md:order-2 text-center md:text-left">
+                    <span class="text-lg font-bold" style="color: #F5A623;">THEME 1</span>
+                    <h2 class="text-3xl md:text-4xl font-bold main-title mt-2">起業の源泉 - The Spark</h2>
+                    <p class="mt-4 text-gray-600 max-w-lg mx-auto md:mx-0">すべての物語には始まりがある。彼らを起業へと突き動かしたのは、個人的な体験から生まれた強い課題意識でした。業界の常識への疑問、家族への想い、仲間との誓い。その多様な動機が、社会を変える大きなうねりの第一波となっています。</p>
+                </div>
+            </section>
+            
+            <section id="challenges" class="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 items-center">
+                 <div class="text-center md:text-left">
+                    <span class="text-lg font-bold" style="color: #F5A623;">THEME 2</span>
+                    <h2 class="text-3xl md:text-4xl font-bold main-title mt-2">創業期の試練 - The Gauntlet</h2>
+                    <p class="mt-4 text-gray-600 max-w-lg mx-auto md:mx-0">0から1を生み出す道は平坦ではありません。事業価値の証明、資金繰り、チーム内の軋轢、そして「何のためにやるのか」という根源的な問い。これらの共通の壁に、彼らはどう立ち向かったのでしょうか。</p>
+                </div>
+                <div>
+                    <div class="card p-6 md:p-8">
+                        <div class="flex flex-wrap gap-3 justify-center items-center">
+                            <span class="challenge-tag text-lg">事業価値の証明</span>
+                            <span class="challenge-tag">チーム内の齟齬</span>
+                            <span class="challenge-tag text-xl">ビジネスモデルの課題</span>
+                            <span class="challenge-tag">市場ニーズの検証</span>
+                             <span class="challenge-tag">資金の使い方</span>
+                            <span class="challenge-tag text-lg">知見・経験不足</span>
+                            <span class="challenge-tag">自信喪失と焦り</span>
+                            <span class="challenge-tag">OEMの制約</span>
+                        </div>
+                        <p class="text-center text-xs mt-4 text-gray-500">※タグの大きさは言及頻度や深刻度をイメージしています。</p>
+                    </div>
+                </div>
+            </section>
+
+            <section id="team" class="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 items-center">
+                 <div class="order-2 md:order-1">
+                    <div class="card p-4 md:p-6">
+                        <div class="chart-container">
+                            <canvas id="teamRadarChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+                <div class="order-1 md:order-2 text-center md:text-left">
+                     <span class="text-lg font-bold" style="color: #F5A623;">THEME 3</span>
+                    <h2 class="text-3xl md:text-4xl font-bold main-title mt-2">組織の設計思想 - Building the Engine</h2>
+                    <p class="mt-4 text-gray-600 max-w-lg mx-auto md:mx-0">事業は人で成る。ラクロス部同期との固い結束、ビジョンへの共感を求める採用、年上メンバーとの協業、そして「ほぼ一人」からの組織化。各社の組織哲学をレーダーチャートで比較すると、その独自性と共通点が見えてきます。</p>
+                </div>
+            </section>
+            
+            <section id="funding" class="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 items-center">
+                <div class="text-center md:text-left">
+                    <span class="text-lg font-bold" style="color: #F5A623;">THEME 4</span>
+                    <h2 class="text-3xl md:text-4xl font-bold main-title mt-2">成長の原資 - Fueling the Growth</h2>
+                    <p class="mt-4 text-gray-600 max-w-lg mx-auto md:mx-0">エンジェルからシリーズAまで、各社は事業フェーズに応じて投資家からの信頼を勝ち取ってきました。その調達額は、事業のポテンシャルと市場からの期待の高さを物語っています。前田氏の累計調達額が突出しており、事業の急成長ぶりがうかがえます。</p>
+                </div>
+                <div>
+                     <div class="card p-4 md:p-6">
+                        <div class="chart-container">
+                            <canvas id="fundingBarChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <section id="future">
+                <div class="text-center mb-12">
+                    <span class="text-lg font-bold" style="color: #F5A623;">THEME 5</span>
+                    <h2 class="text-3xl md:text-4xl font-bold main-title mt-2">未来への展望 - Visions for the Future</h2>
+                    <p class="mt-2 text-gray-600 max-w-2xl mx-auto">彼らが見据えるのは、単なる事業の成功ではありません。業界の変革、そして社会課題の解決です。その壮大なビジョンを、具体的な目標数値と共に示します。</p>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div class="card p-6 md:p-8">
+                        <h3 class="text-2xl font-bold main-title">AdMel:「愛される広告」で市場を創る</h3>
+                        <p class="mt-2 text-gray-600">ユーザー体験を損なわない音声広告プラットフォームで、エンタメアプリ市場に新たな収益モデルと文化を構築する。</p>
+                    </div>
+                     <div class="card p-6 md:p-8">
+                        <h3 class="text-2xl font-bold main-title">Hagino:「観光の日常化」インフラを創る</h3>
+                        <p class="mt-2 text-gray-600">メディア、人材、コミュニティを多角展開し、日本の観光を世界のスタンダードへ。宿泊業界を憧れの業界に変える。</p>
+                    </div>
+                    <div class="card p-6 md:p-8">
+                        <h3 class="text-2xl font-bold main-title">LacuS: 高齢者の食を、世界で変える</h3>
+                        <p class="mt-2 text-gray-600">2028年上場、2030年時価総額300億円目標。自社工場を核に、課題先進国・日本からアジア、そして世界へ展開する。</p>
+                    </div>
+                     <div class="card p-6 md:p-8">
+                        <h3 class="text-2xl font-bold main-title">匠技研工業: 製造業の未来を、IXで変える</h3>
+                        <p class="mt-2 text-gray-600">2030年ARR120億円目標。個社のDXから、サプライチェーン全体を最適化する「産業変革(IX)」の実現を目指す。</p>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+        
+        <footer class="mt-20 md:mt-32 pt-8 border-t border-gray-200 text-center">
+            <p class="text-sm text-gray-500">&copy; 2025 TORYUMON TOKYO. Infographic by Gemini.</p>
+        </footer>
+
+    </div>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+
+    const wrapLabel = (label) => {
+        if (label.length <= 16) {
+            return label;
+        }
+        const words = label.split(' ');
+        const lines = [];
+        let currentLine = '';
+        words.forEach(word => {
+            if ((currentLine + ' ' + word).trim().length > 16 && currentLine.length > 0) {
+                lines.push(currentLine);
+                currentLine = word;
+            } else {
+                currentLine = (currentLine + ' ' + word).trim();
+            }
+        });
+        if (currentLine) {
+            lines.push(currentLine);
+        }
+        return lines;
+    };
+    
+    const tooltipTitleCallback = (tooltipItems) => {
+        const item = tooltipItems[0];
+        let label = item.chart.data.labels[item.dataIndex];
+        if (Array.isArray(label)) {
+          return label.join(' ');
+        } else {
+          return label;
+        }
+    };
+
+    // Radar Chart
+    const radarCtx = document.getElementById('teamRadarChart').getContext('2d');
+    new Chart(radarCtx, {
+        type: 'radar',
+        data: {
+            labels: ['創業者シナジー', 'ビジョン共感', '多様性・経験', 'カルチャー重視', '主体性・裁量'],
+            datasets: [{
+                label: '高橋 桃花',
+                data: [3, 4, 5, 4, 4],
+                backgroundColor: 'rgba(245, 166, 35, 0.2)',
+                borderColor: 'rgb(245, 166, 35)',
+                pointBackgroundColor: 'rgb(245, 166, 35)',
+                borderWidth: 2,
+            }, {
+                label: '坪井 悠起',
+                data: [4, 5, 4, 5, 5],
+                backgroundColor: 'rgba(87, 108, 188, 0.2)',
+                borderColor: 'rgb(87, 108, 188)',
+                pointBackgroundColor: 'rgb(87, 108, 188)',
+                borderWidth: 2,
+            }, {
+                label: '古津 瑛陸',
+                data: [3, 5, 4, 3, 3],
+                backgroundColor: 'rgba(25, 55, 109, 0.2)',
+                borderColor: 'rgb(25, 55, 109)',
+                pointBackgroundColor: 'rgb(25, 55, 109)',
+                borderWidth: 2,
+            }, {
+                label: '前田 将太',
+                data: [5, 4, 3, 4, 4],
+                backgroundColor: 'rgba(11, 36, 71, 0.2)',
+                borderColor: 'rgb(11, 36, 71)',
+                pointBackgroundColor: 'rgb(11, 36, 71)',
+                borderWidth: 2,
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    position: 'top',
+                },
+                tooltip: {
+                    callbacks: {
+                        title: tooltipTitleCallback
+                    }
+                }
+            },
+            scales: {
+                r: {
+                    angleLines: { color: 'rgba(0,0,0,0.1)' },
+                    grid: { color: 'rgba(0,0,0,0.1)' },
+                    pointLabels: { font: { size: 12 }, color: '#0B2447' },
+                    ticks: {
+                        backdropColor: 'rgba(255,255,255,0.7)',
+                        stepSize: 1
+                    },
+                    min: 0,
+                    max: 5,
+                }
+            }
+        }
+    });
+
+    // Bar Chart
+    const barCtx = document.getElementById('fundingBarChart').getContext('2d');
+    new Chart(barCtx, {
+        type: 'bar',
+        data: {
+            labels: ['高橋 桃花', '坪井 悠起', '古津 瑛陸', '前田 将太 (累計)'],
+            datasets: [{
+                label: '資金調達額 (億円)',
+                data: [0.01, 0.6, 1.05, 7.7],
+                backgroundColor: [
+                    'rgba(245, 166, 35, 0.7)',
+                    'rgba(87, 108, 188, 0.7)',
+                    'rgba(25, 55, 109, 0.7)',
+                    'rgba(11, 36, 71, 0.7)'
+                ],
+                borderColor: [
+                    '#F5A623',
+                    '#576CBC',
+                    '#19376D',
+                    '#0B2447'
+                ],
+                borderWidth: 2,
+                borderRadius: 5,
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            indexAxis: 'y',
+            plugins: {
+                legend: {
+                    display: false,
+                },
+                tooltip: {
+                    callbacks: {
+                        title: tooltipTitleCallback,
+                        label: function(context) {
+                            let value = context.raw;
+                            if (value === 0.01) {
+                                return 'エンジェルラウンド (金額非公開)';
+                            }
+                            return ` ${value}億円`;
+                        }
+                    }
+                }
+            },
+            scales: {
+                x: {
+                    beginAtZero: true,
+                    title: {
+                        display: true,
+                        text: '資金調達額 (億円)',
+                        color: '#334155'
+                    },
+                    grid: { color: 'rgba(0,0,0,0.05)' }
+                },
+                y: {
+                    grid: { display: false }
+                }
+            }
+        }
+    });
+});
+</script>
+</body>
+</html>
